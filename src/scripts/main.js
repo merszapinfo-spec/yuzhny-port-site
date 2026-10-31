@@ -390,9 +390,10 @@ function setupEmbankment(mm) {
 }
 
 if (reduceMotion) {
+  // Без анимаций показываем всё сразу: снимаем .js, от которого зависят скрытые стартовые состояния
+  document.documentElement.classList.remove('js');
   $$('[data-route-line]').forEach((l) => (l.style.strokeDashoffset = '0'));
   $$('[data-route-pt]').forEach((p) => p.classList.add('is-passed'));
-  $$('[data-route-card]').forEach((c) => c.classList.add('is-active'));
 } else {
   const mm = gsap.matchMedia();
   setupHero();

@@ -18,7 +18,6 @@ import { images } from '../data/images.js';
   <div class="hero__shade"></div>
 
   <div class="hero__content container">
-    <p class="hero__kicker" data-hero-fade>Аеон Девелопмент · Москва-река</p>
     <h1 class="hero__title" aria-label="Южный Порт">
       <span class="hero__line" aria-hidden="true"><span data-hero-line>Южный</span></span>
       <span class="hero__line" aria-hidden="true"><span data-hero-line><b>Порт</b></span></span>
@@ -59,8 +58,8 @@ import { images } from '../data/images.js';
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(180deg, rgba(11, 21, 48, 0.55) 0%, rgba(11, 21, 48, 0) 32%),
-      linear-gradient(0deg, rgba(11, 21, 48, 0.85) 0%, rgba(11, 21, 48, 0.2) 45%, rgba(11, 21, 48, 0) 65%);
+      linear-gradient(180deg, var(--ink-a55) 0%, transparent 32%),
+      linear-gradient(0deg, var(--ink-a85) 0%, var(--ink-a20) 45%, transparent 65%);
   }
 
   .hero__content {
@@ -71,21 +70,14 @@ import { images } from '../data/images.js';
     justify-content: flex-end;
     padding-bottom: clamp(40px, 7vh, 80px);
   }
-  .hero__kicker {
-    margin: 0 0 16px;
-    font-family: var(--font-display);
-    font-size: 13px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--river);
-  }
   .hero__title {
     margin: 0;
     font-family: var(--font-display);
     font-weight: 300;
     text-transform: uppercase;
-    font-size: clamp(64px, 15vw, 248px);
-    line-height: 0.86;
+    /* ограничиваем и по высоте экрана, чтобы на низких ноутбуках строка с цифрами не уезжала */
+    font-size: clamp(56px, min(15vw, 24svh), 248px);
+    line-height: 1;
     letter-spacing: -0.01em;
   }
   .hero__title b {
@@ -94,7 +86,6 @@ import { images } from '../data/images.js';
   .hero__line {
     display: block;
     overflow: hidden;
-    padding-bottom: 0.04em;
   }
   .hero__line > span {
     display: inline-block;
@@ -116,7 +107,7 @@ import { images } from '../data/images.js';
     margin: 0;
     max-width: 30em;
     font-size: clamp(16px, 1.4vw, 19px);
-    color: rgba(255, 255, 255, 0.85);
+    color: var(--white-a85);
   }
   .hero__facts {
     display: flex;
@@ -125,7 +116,7 @@ import { images } from '../data/images.js';
     padding: 0;
     list-style: none;
     font-size: 14px;
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--white-a70);
     white-space: nowrap;
   }
   .hero__facts b {
@@ -153,6 +144,10 @@ import { images } from '../data/images.js';
     background: var(--river);
     animation: scrollcue 2.2s var(--ease) infinite;
   }
+  .hero__scroll:hover span,
+  .hero__scroll:focus-visible span {
+    animation-play-state: paused;
+  }
   @keyframes scrollcue {
     from { transform: translateY(-100%); }
     to { transform: translateY(260%); }
@@ -168,6 +163,9 @@ import { images } from '../data/images.js';
     }
     .hero__scroll {
       display: none;
+    }
+    .hero__media :global(img) {
+      object-position: 72% 60%;
     }
     .hero__line:last-child {
       padding-left: 0.5em;

@@ -19,7 +19,7 @@ const base = import.meta.env.BASE_URL;
       <div class="contact__links" data-reveal>
         <a class="btn btn--ghost" href={`${base}yuzhny-port-presentation.pdf`} download>
           Скачать презентацию
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 4v12m0 0l-5-5m5 5l5-5M5 20h14" /></svg>
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 4v12m0 0l-5-5m5 5l5-5M5 20h14" /></svg>
         </a>
         <a class="contact__phone" href={contacts.phoneHref}>{contacts.phone}</a>
       </div>
@@ -61,7 +61,7 @@ const base = import.meta.env.BASE_URL;
     position: absolute;
     inset: 0;
     z-index: 1;
-    background: linear-gradient(90deg, rgba(11, 21, 48, 0.92) 0%, rgba(11, 21, 48, 0.7) 55%, rgba(11, 21, 48, 0.5) 100%);
+    background: linear-gradient(90deg, var(--ink-a94) 0%, var(--ink-a86) 55%, var(--ink-a70) 100%);
   }
   .contact__grid {
     position: relative;
@@ -88,7 +88,7 @@ const base = import.meta.env.BASE_URL;
     display: grid;
     gap: 20px;
     padding: clamp(24px, 3vw, 44px);
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--white-a08);
     border: 1px solid var(--line-light);
     border-radius: 6px;
     backdrop-filter: blur(16px);
@@ -102,31 +102,32 @@ const base = import.meta.env.BASE_URL;
     font-size: 13px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--white-a60);
   }
   .field input {
     height: 56px;
     padding: 0 18px;
     border: 1px solid var(--line-light);
     border-radius: 4px;
-    background: rgba(11, 21, 48, 0.4);
+    background: var(--ink-a40);
     color: var(--white);
     font-size: 17px;
     outline: none;
     transition: border-color 0.3s;
   }
-  .field input:focus {
-    border-color: var(--river);
+  .field input:focus-visible {
+    outline: 2px solid var(--river);
+    outline-offset: 2px;
   }
   .field input.is-invalid {
-    border-color: #ff7a7a;
+    border-color: var(--danger);
   }
   .consent {
     display: flex;
     gap: 12px;
     font-size: 13px;
     line-height: 1.5;
-    color: rgba(255, 255, 255, 0.65);
+    color: var(--white-a65);
   }
   .consent input {
     flex-shrink: 0;
@@ -150,7 +151,7 @@ const base = import.meta.env.BASE_URL;
     color: var(--river);
   }
   .form__status.is-error {
-    color: #ff9a9a;
+    color: var(--danger);
   }
 
   @media (max-width: 900px) {

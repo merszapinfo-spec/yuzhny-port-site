@@ -85,7 +85,7 @@ import { architecture } from '../data/site.js';
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(0deg, rgba(11, 21, 48, 0.8) 0%, rgba(11, 21, 48, 0) 50%);
+    background: linear-gradient(0deg, var(--ink-a80) 0%, transparent 50%);
   }
   .arch__caption {
     position: absolute;
@@ -113,7 +113,8 @@ import { architecture } from '../data/site.js';
     font-weight: 300;
     text-transform: uppercase;
     font-size: clamp(32px, 4.6vw, 72px);
-    line-height: 0.95;
+    line-height: 1;
+    text-wrap: balance;
   }
   .arch__caption h3 b {
     font-weight: 600;
@@ -131,7 +132,7 @@ import { architecture } from '../data/site.js';
     grid-row: 1 / span 2;
     margin: 0;
     font-size: 15px;
-    color: rgba(255, 255, 255, 0.82);
+    color: var(--white-a82);
   }
 
   .arch__progress {
@@ -164,7 +165,7 @@ import { architecture } from '../data/site.js';
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(90deg, rgba(11, 21, 48, 0.7), rgba(11, 21, 48, 0) 60%);
+    background: linear-gradient(90deg, var(--ink-a70), transparent 60%);
   }
   .facade figcaption {
     position: absolute;

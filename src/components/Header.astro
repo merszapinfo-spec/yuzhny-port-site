@@ -44,7 +44,7 @@ import { nav, contacts } from '../data/site.js';
     transition: background 0.5s var(--ease), transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
   }
   .header.is-solid {
-    background: rgba(11, 21, 48, 0.82);
+    background: var(--ink-a82);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     box-shadow: 0 1px 0 var(--line-light);
@@ -61,7 +61,6 @@ import { nav, contacts } from '../data/site.js';
     padding: 0 var(--gutter);
     max-width: var(--maxw);
     margin: 0 auto;
-    transition: height 0.4s var(--ease);
   }
   .header.is-solid .header__inner {
     height: 68px;

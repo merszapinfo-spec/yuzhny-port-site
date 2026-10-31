@@ -12,6 +12,39 @@
   --line: rgba(22, 33, 63, 0.12);
   --line-light: rgba(255, 255, 255, 0.18);
 
+  /* полупрозрачные оттенки палитры */
+  --ink-a10: rgba(11, 21, 48, 0.1);
+  --ink-a20: rgba(11, 21, 48, 0.2);
+  --ink-a35: rgba(11, 21, 48, 0.35);
+  --ink-a40: rgba(11, 21, 48, 0.4);
+  --ink-a45: rgba(11, 21, 48, 0.45);
+  --ink-a50: rgba(11, 21, 48, 0.5);
+  --ink-a55: rgba(11, 21, 48, 0.55);
+  --ink-a70: rgba(11, 21, 48, 0.7);
+  --ink-a75: rgba(11, 21, 48, 0.75);
+  --ink-a80: rgba(11, 21, 48, 0.8);
+  --ink-a82: rgba(11, 21, 48, 0.82);
+  --ink-a85: rgba(11, 21, 48, 0.85);
+  --ink-a86: rgba(11, 21, 48, 0.86);
+  --ink-a90: rgba(11, 21, 48, 0.9);
+  --ink-a94: rgba(11, 21, 48, 0.94);
+  --river-a30: rgba(60, 196, 240, 0.3);
+  --river-a35: rgba(60, 196, 240, 0.35);
+  --river-a90: rgba(60, 196, 240, 0.9);
+  --white-a08: rgba(255, 255, 255, 0.08);
+  --white-a25: rgba(255, 255, 255, 0.25);
+  --white-a45: rgba(255, 255, 255, 0.45);
+  --white-a50: rgba(255, 255, 255, 0.5);
+  --white-a60: rgba(255, 255, 255, 0.6);
+  --white-a65: rgba(255, 255, 255, 0.65);
+  --white-a70: rgba(255, 255, 255, 0.7);
+  --white-a72: rgba(255, 255, 255, 0.72);
+  --white-a80: rgba(255, 255, 255, 0.8);
+  --white-a82: rgba(255, 255, 255, 0.82);
+  --white-a85: rgba(255, 255, 255, 0.85);
+  --white-a94: rgba(255, 255, 255, 0.94);
+  --danger: #ff8f8f;
+
   --font-display: 'Jost Variable', 'Futura', system-ui, sans-serif;
   --font-body: 'Manrope Variable', system-ui, sans-serif;
 
@@ -28,6 +61,7 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
 }
 
 html.lenis,
@@ -46,7 +80,18 @@ body {
   font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+:focus-visible {
+  outline: 2px solid var(--river);
+  outline-offset: 3px;
 }
 
 img {
@@ -113,7 +158,7 @@ input {
   font-weight: 300;
   text-transform: uppercase;
   letter-spacing: 0.02em;
-  line-height: 0.95;
+  line-height: 1;
   font-size: clamp(44px, 8vw, 128px);
   margin: 0;
 }
@@ -141,7 +186,7 @@ input {
   max-width: 34em;
 }
 .section--dark .lead {
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--white-a72);
 }
 
 .btn {
@@ -161,7 +206,7 @@ input {
   text-transform: uppercase;
   cursor: pointer;
   overflow: hidden;
-  transition: color 0.4s var(--ease), border-color 0.4s var(--ease), background 0.4s var(--ease);
+  transition: color 0.4s var(--ease), border-color 0.4s var(--ease), background 0.4s var(--ease), transform 0.2s var(--ease);
   isolation: isolate;
 }
 .btn::before {
@@ -205,6 +250,18 @@ input {
 }
 .btn--dark:hover {
   color: var(--ink);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+.btn:disabled {
+  background: var(--white-a25);
+  color: var(--white-a60);
+  cursor: progress;
+}
+.btn:disabled::before {
+  transform: translateY(101%);
 }
 
 .btn svg {

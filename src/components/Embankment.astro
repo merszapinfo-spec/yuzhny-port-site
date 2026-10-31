@@ -67,7 +67,7 @@ import { route, routePath } from '../data/site.js';
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(0deg, rgba(11, 21, 48, 0.9) 0%, rgba(11, 21, 48, 0.1) 55%);
+    background: linear-gradient(0deg, var(--ink-a90) 0%, var(--ink-a10) 55%);
     pointer-events: none;
   }
   .emb__hero-text {
@@ -80,7 +80,7 @@ import { route, routePath } from '../data/site.js';
     font-size: clamp(64px, 13vw, 210px);
   }
   .emb__hero-text .lead {
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--white-a80);
   }
 
   .route {
@@ -119,7 +119,7 @@ import { route, routePath } from '../data/site.js';
     stroke-linejoin: round;
   }
   .route__line-bg {
-    stroke: rgba(11, 21, 48, 0.55);
+    stroke: var(--ink-a55);
     stroke-width: 8;
   }
   .route__line {
@@ -127,7 +127,7 @@ import { route, routePath } from '../data/site.js';
     stroke-width: 5;
     stroke-dasharray: 1;
     stroke-dashoffset: 1;
-    filter: drop-shadow(0 0 8px rgba(60, 196, 240, 0.9));
+    filter: drop-shadow(0 0 8px var(--river-a90));
   }
 
   .route__pt {
@@ -156,7 +156,7 @@ import { route, routePath } from '../data/site.js';
     opacity: 1;
     background: var(--river);
     color: var(--ink);
-    box-shadow: 0 0 0 8px rgba(60, 196, 240, 0.3);
+    box-shadow: 0 0 0 8px var(--river-a30);
   }
 
   .route__cards {
@@ -168,7 +168,7 @@ import { route, routePath } from '../data/site.js';
     font-family: var(--font-display);
     font-size: 14px;
     letter-spacing: 0.2em;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--white-a50);
   }
   .route__count span {
     color: var(--river);
@@ -176,16 +176,23 @@ import { route, routePath } from '../data/site.js';
     font-weight: 500;
   }
   .route__card {
-    grid-area: 2 / 1;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(24px);
-    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease), visibility 0.6s;
+    margin-bottom: 40px;
   }
-  .route__card.is-active {
-    opacity: 1;
-    visibility: visible;
-    transform: none;
+  /* Карточки прячутся только когда скрипт загрузился и ведёт маршрут (десктоп) */
+  @media (min-width: 901px) {
+    :global(.js) .route__card {
+      grid-area: 2 / 1;
+      margin-bottom: 0;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(24px);
+      transition: opacity 0.6s var(--ease), transform 0.6s var(--ease), visibility 0.6s;
+    }
+    :global(.js) .route__card.is-active {
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+    }
   }
   .route__card-img {
     position: relative;
@@ -210,7 +217,7 @@ import { route, routePath } from '../data/site.js';
   }
   .route__card p {
     margin: 0;
-    color: rgba(255, 255, 255, 0.72);
+    color: var(--white-a72);
   }
 
   @media (max-width: 900px) {
@@ -227,13 +234,6 @@ import { route, routePath } from '../data/site.js';
     }
     .route__count {
       display: none;
-    }
-    .route__card {
-      grid-area: auto;
-      opacity: 1;
-      visibility: visible;
-      transform: none;
-      margin-bottom: 40px;
     }
   }
 </style>
