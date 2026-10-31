@@ -1,0 +1,232 @@
+---
+import { nav, contacts } from '../data/site.js';
+---
+
+<header class="header" data-header>
+  <div class="header__inner">
+    <a href="#top" class="logo" aria-label="Южный Порт — наверх">
+      <span class="logo__spire" aria-hidden="true"></span>
+      <span class="logo__text">Южный<b>Порт</b></span>
+    </a>
+
+    <nav class="header__nav" aria-label="Разделы">
+      {nav.map((item) => <a href={item.href}>{item.label}</a>)}
+    </nav>
+
+    <div class="header__actions">
+      <a class="header__phone" href={contacts.phoneHref}>{contacts.phone}</a>
+      <a class="btn btn--primary header__cta" href="#contact">Консультация</a>
+      <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" data-burger>
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="menu" data-menu hidden>
+    <nav class="menu__nav" aria-label="Меню">
+      {nav.map((item, i) => (
+        <a href={item.href}><small>0{i + 1}</small>{item.label}</a>
+      ))}
+    </nav>
+    <div class="menu__foot">
+      <a href={contacts.phoneHref}>{contacts.phone}</a>
+      <a class="btn btn--primary" href="#contact">Получить консультацию</a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 50;
+    color: var(--white);
+    transition: background 0.5s var(--ease), transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
+  }
+  .header.is-solid {
+    background: rgba(11, 21, 48, 0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 1px 0 var(--line-light);
+  }
+  .header.is-hidden {
+    transform: translateY(-100%);
+  }
+  .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    height: 84px;
+    padding: 0 var(--gutter);
+    max-width: var(--maxw);
+    margin: 0 auto;
+    transition: height 0.4s var(--ease);
+  }
+  .header.is-solid .header__inner {
+    height: 68px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-size: 16px;
+    font-weight: 300;
+    white-space: nowrap;
+  }
+  .logo__text b {
+    font-weight: 600;
+    margin-left: 0.4em;
+  }
+  .logo__spire {
+    width: 3px;
+    height: 28px;
+    background: linear-gradient(var(--white), var(--river));
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+    transform: scaleX(2.4);
+  }
+
+  .header__nav {
+    display: flex;
+    gap: clamp(16px, 2.2vw, 36px);
+    font-size: 14px;
+    letter-spacing: 0.04em;
+  }
+  .header__nav a {
+    position: relative;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+  }
+  .header__nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    height: 1px;
+    background: var(--river);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s var(--ease);
+  }
+  .header__nav a:hover,
+  .header__nav a.is-active {
+    opacity: 1;
+  }
+  .header__nav a:hover::after,
+  .header__nav a.is-active::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .header__phone {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+  .header__cta {
+    height: 44px;
+    padding: 0 22px;
+    font-size: 12px;
+  }
+
+  .burger {
+    display: none;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--line-light);
+    border-radius: 50%;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+    position: relative;
+  }
+  .burger span {
+    position: absolute;
+    left: 13px;
+    right: 13px;
+    height: 1.5px;
+    background: currentColor;
+    transition: transform 0.4s var(--ease);
+  }
+  .burger span:first-child {
+    top: 18px;
+  }
+  .burger span:last-child {
+    top: 25px;
+  }
+  .burger[aria-expanded='true'] span:first-child {
+    transform: translateY(3.5px) rotate(45deg);
+  }
+  .burger[aria-expanded='true'] span:last-child {
+    transform: translateY(-3.5px) rotate(-45deg);
+  }
+
+  .menu {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 110px var(--gutter) 32px;
+    background: var(--ink);
+  }
+  .menu[hidden] {
+    display: none;
+  }
+  .menu__nav {
+    display: flex;
+    flex-direction: column;
+  }
+  .menu__nav a {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line-light);
+    font-family: var(--font-display);
+    font-size: clamp(28px, 8vw, 44px);
+    font-weight: 300;
+    text-transform: uppercase;
+  }
+  .menu__nav small {
+    font-size: 12px;
+    color: var(--river);
+    letter-spacing: 0.1em;
+  }
+  .menu__foot {
+    display: grid;
+    gap: 16px;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  @media (max-width: 1100px) {
+    .header__nav {
+      display: none;
+    }
+    .burger {
+      display: block;
+    }
+  }
+  @media (max-width: 640px) {
+    .header__phone,
+    .header__cta {
+      display: none;
+    }
+    .logo {
+      font-size: 14px;
+    }
+  }
+</style>

@@ -1,0 +1,152 @@
+---
+import { Image } from 'astro:assets';
+import { images } from '../data/images.js';
+import { transport, contacts } from '../data/site.js';
+---
+
+<section class="section location" id="location">
+  <div class="container location__grid">
+    <div class="location__text">
+      <span class="eyebrow" data-reveal>Локация</span>
+      <h2 class="h-section" data-split>Юг Москвы, <b>первая линия</b> реки</h2>
+      <p class="lead" data-reveal>«Южный Порт» станет не только жилым и деловым кварталом, но и транспортным центром юго-востока столицы.</p>
+
+      <ul class="transport">
+        {transport.map((t, i) => (
+          <li data-reveal>
+            <span class="transport__n">0{i + 1}</span>
+            <div>
+              <h3>{t.title}</h3>
+              <p>{t.text}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <div class="location__addr" data-reveal>
+        <span>Адрес проекта</span>
+        <p>{contacts.address}</p>
+      </div>
+    </div>
+
+    <div class="location__maps">
+      <figure class="location__map" data-reveal>
+        <Image src={images['location-map']} alt="Карта: Южный Порт и 2 км набережной на Москве-реке" widths={[600, 1069]} sizes="(max-width: 900px) 100vw, 40vw" />
+      </figure>
+      <figure class="location__mini" data-reveal>
+        <Image src={images['river-map']} alt="Набережные Москвы-реки, благоустроенные девелопером" widths={[490]} sizes="240px" />
+        <figcaption>
+          <b>3,5 км</b> набережных — наш вклад в благоустройство: 1,5 км в «Ривер Парк Коломенское» и 2 км в «Южном Порту»
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<style>
+  .location__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(40px, 6vw, 120px);
+  }
+  .transport {
+    margin: 48px 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--line);
+  }
+  .transport li {
+    display: flex;
+    gap: 24px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .transport__n {
+    font-family: var(--font-display);
+    font-size: 14px;
+    color: var(--river-deep);
+    letter-spacing: 0.1em;
+    padding-top: 4px;
+  }
+  .transport h3 {
+    margin: 0 0 4px;
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+  .transport p {
+    margin: 0;
+    color: var(--muted);
+  }
+  .location__addr {
+    margin-top: 40px;
+  }
+  .location__addr span {
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .location__addr p {
+    margin: 6px 0 0;
+    font-family: var(--font-display);
+    font-size: 22px;
+    color: var(--navy);
+  }
+
+  .location__maps {
+    position: relative;
+  }
+  .location__map {
+    margin: 0;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 40px 80px -40px rgba(11, 21, 48, 0.4);
+  }
+  .location__map :global(img) {
+    width: 100%;
+  }
+  .location__mini {
+    position: absolute;
+    left: -48px;
+    bottom: -48px;
+    width: 300px;
+    margin: 0;
+    padding: 16px;
+    background: var(--white);
+    border-radius: 6px;
+    box-shadow: 0 30px 60px -30px rgba(11, 21, 48, 0.45);
+  }
+  .location__mini figcaption {
+    margin-top: 12px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+  .location__mini b {
+    font-family: var(--font-display);
+    font-size: 20px;
+    color: var(--navy);
+  }
+
+  @media (max-width: 900px) {
+    .location__grid {
+      grid-template-columns: 1fr;
+    }
+    .location__mini {
+      position: relative;
+      left: auto;
+      bottom: auto;
+      width: 100%;
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 16px;
+      align-items: center;
+    }
+    .location__mini figcaption {
+      margin: 0;
+    }
+  }
+</style>

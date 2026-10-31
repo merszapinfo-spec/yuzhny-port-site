@@ -1,0 +1,176 @@
+---
+import { Image } from 'astro:assets';
+import { images } from '../data/images.js';
+---
+
+<section class="hero" id="top">
+  <div class="hero__media" data-hero-media>
+    <Image
+      src={images['hero-skyline']}
+      alt="Панорама Южного Порта с набережной и шпилем над Москвой-рекой"
+      widths={[828, 1280, 1920, 2560]}
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+      class="cover"
+    />
+  </div>
+  <div class="hero__shade"></div>
+
+  <div class="hero__content container">
+    <p class="hero__kicker" data-hero-fade>Аеон Девелопмент · Москва-река</p>
+    <h1 class="hero__title" aria-label="Южный Порт">
+      <span class="hero__line" aria-hidden="true"><span data-hero-line>Южный</span></span>
+      <span class="hero__line" aria-hidden="true"><span data-hero-line><b>Порт</b></span></span>
+    </h1>
+    <div class="hero__bottom" data-hero-fade>
+      <p class="hero__sub">Новый район будущего на&nbsp;первой линии Москвы-реки: небоскрёбы, деловой центр и&nbsp;набережная длиной 2&nbsp;км</p>
+      <ul class="hero__facts">
+        <li><b>39,7</b> га</li>
+        <li><b>350</b> м высота</li>
+        <li><b>2024–2041</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <a class="hero__scroll" href="#project" aria-label="Листать вниз">
+    <span></span>
+  </a>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    height: 100svh;
+    min-height: 620px;
+    overflow: hidden;
+    color: var(--white);
+    background: var(--ink);
+  }
+  .hero__media {
+    position: absolute;
+    inset: -4% 0;
+    will-change: transform;
+  }
+  .hero__media :global(img) {
+    object-position: 50% 60%;
+  }
+  .hero__shade {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(11, 21, 48, 0.55) 0%, rgba(11, 21, 48, 0) 32%),
+      linear-gradient(0deg, rgba(11, 21, 48, 0.85) 0%, rgba(11, 21, 48, 0.2) 45%, rgba(11, 21, 48, 0) 65%);
+  }
+
+  .hero__content {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: clamp(40px, 7vh, 80px);
+  }
+  .hero__kicker {
+    margin: 0 0 16px;
+    font-family: var(--font-display);
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--river);
+  }
+  .hero__title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 300;
+    text-transform: uppercase;
+    font-size: clamp(64px, 15vw, 248px);
+    line-height: 0.86;
+    letter-spacing: -0.01em;
+  }
+  .hero__title b {
+    font-weight: 600;
+  }
+  .hero__line {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.04em;
+  }
+  .hero__line > span {
+    display: inline-block;
+  }
+  .hero__line:last-child {
+    padding-left: 0.9em;
+  }
+
+  .hero__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 32px;
+    margin-top: clamp(24px, 4vh, 48px);
+    padding-top: 24px;
+    border-top: 1px solid var(--line-light);
+  }
+  .hero__sub {
+    margin: 0;
+    max-width: 30em;
+    font-size: clamp(16px, 1.4vw, 19px);
+    color: rgba(255, 255, 255, 0.85);
+  }
+  .hero__facts {
+    display: flex;
+    gap: clamp(20px, 3vw, 48px);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    white-space: nowrap;
+  }
+  .hero__facts b {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--white);
+    margin-right: 4px;
+  }
+
+  .hero__scroll {
+    position: absolute;
+    right: var(--gutter);
+    top: 50%;
+    width: 1px;
+    height: 80px;
+    background: var(--line-light);
+    overflow: hidden;
+  }
+  .hero__scroll span {
+    position: absolute;
+    left: 0;
+    width: 1px;
+    height: 40%;
+    background: var(--river);
+    animation: scrollcue 2.2s var(--ease) infinite;
+  }
+  @keyframes scrollcue {
+    from { transform: translateY(-100%); }
+    to { transform: translateY(260%); }
+  }
+
+  @media (max-width: 760px) {
+    .hero__bottom {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .hero__facts b {
+      font-size: 20px;
+    }
+    .hero__scroll {
+      display: none;
+    }
+    .hero__line:last-child {
+      padding-left: 0.5em;
+    }
+  }
+</style>

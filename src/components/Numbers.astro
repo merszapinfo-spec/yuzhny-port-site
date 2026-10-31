@@ -1,0 +1,100 @@
+---
+import { Image } from 'astro:assets';
+import { images } from '../data/images.js';
+import { embankmentStats } from '../data/site.js';
+
+const fmt = (n) => n.toLocaleString('ru-RU');
+---
+
+<section class="section section--dark numbers">
+  <div class="numbers__bg" data-parallax="-10">
+    <Image src={images['skyline-strip']} alt="" widths={[828, 1280, 1784]} sizes="100vw" class="cover" />
+  </div>
+  <div class="container">
+    <span class="eyebrow" data-reveal>Набережная в цифрах</span>
+    <ul class="numbers__grid">
+      {embankmentStats.map((s, i) => (
+        <li class:list={['numbers__item', { 'numbers__item--big': i === 0 }]} data-reveal>
+          <span class="numbers__value">
+            <span data-count={s.value}>{fmt(s.value)}</span>
+            {s.unit && <small>{s.unit}</small>}
+          </span>
+          <span class="numbers__label">{s.label}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .numbers {
+    overflow: hidden;
+    border-top: 1px solid var(--line-light);
+  }
+  .numbers__bg {
+    position: absolute;
+    inset: -10% 0;
+    opacity: 0.16;
+  }
+  .numbers .container {
+    position: relative;
+  }
+  .numbers__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 48px 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--line-light);
+  }
+  .numbers__item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 36px 24px 36px 0;
+    border-bottom: 1px solid var(--line-light);
+  }
+  .numbers__item:not(:nth-child(3n + 1)) {
+    padding-left: 24px;
+    border-left: 1px solid var(--line-light);
+  }
+  .numbers__value {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 4.4vw, 72px);
+    font-weight: 300;
+    line-height: 1;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  .numbers__value small {
+    margin-left: 8px;
+    font-size: 0.42em;
+    font-weight: 500;
+    color: var(--river);
+  }
+  .numbers__item--big .numbers__value {
+    color: var(--river);
+  }
+  .numbers__item--big .numbers__value small {
+    color: var(--white);
+  }
+  .numbers__label {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.65);
+  }
+
+  @media (max-width: 900px) {
+    .numbers__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .numbers__item,
+    .numbers__item:not(:nth-child(3n + 1)) {
+      padding: 24px 12px 24px 0;
+      border-left: 0;
+    }
+    .numbers__item:nth-child(even) {
+      padding-left: 16px;
+      border-left: 1px solid var(--line-light);
+    }
+  }
+</style>

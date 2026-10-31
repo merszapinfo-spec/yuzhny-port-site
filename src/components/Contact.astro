@@ -1,0 +1,161 @@
+---
+import { Image } from 'astro:assets';
+import { images } from '../data/images.js';
+import { contacts } from '../data/site.js';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<section class="contact" id="contact">
+  <div class="contact__bg" data-parallax="-12">
+    <Image src={images['architecture']} alt="" widths={[828, 1280, 1920, 2666]} sizes="100vw" class="cover" />
+  </div>
+
+  <div class="container contact__grid">
+    <div class="contact__text">
+      <span class="eyebrow" data-reveal>Консультация</span>
+      <h2 class="h-section" data-split>Узнайте о проекте <b>первыми</b></h2>
+      <p class="lead" data-reveal>Оставьте телефон — специалист расскажет о проекте, сроках и условиях.</p>
+      <div class="contact__links" data-reveal>
+        <a class="btn btn--ghost" href={`${base}yuzhny-port-presentation.pdf`} download>
+          Скачать презентацию
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 4v12m0 0l-5-5m5 5l5-5M5 20h14" /></svg>
+        </a>
+        <a class="contact__phone" href={contacts.phoneHref}>{contacts.phone}</a>
+      </div>
+    </div>
+
+    <form class="form" data-lead-form novalidate data-reveal>
+      <label class="field">
+        <span>Имя</span>
+        <input name="name" type="text" autocomplete="name" required />
+      </label>
+      <label class="field">
+        <span>Телефон</span>
+        <input name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+7 (___) ___-__-__" required data-phone />
+      </label>
+      <label class="consent">
+        <input name="consent" type="checkbox" required checked />
+        <span>Соглашаюсь с <a href="#">политикой конфиденциальности</a> и обработкой персональных данных</span>
+      </label>
+      <button class="btn btn--primary form__submit" type="submit">Получить консультацию</button>
+      <p class="form__status" data-form-status role="status"></p>
+    </form>
+  </div>
+</section>
+
+<style>
+  .contact {
+    position: relative;
+    padding: clamp(100px, 14vw, 200px) 0;
+    color: var(--white);
+    background: var(--ink);
+    overflow: hidden;
+  }
+  .contact__bg {
+    position: absolute;
+    inset: -12% 0;
+  }
+  .contact::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(90deg, rgba(11, 21, 48, 0.92) 0%, rgba(11, 21, 48, 0.7) 55%, rgba(11, 21, 48, 0.5) 100%);
+  }
+  .contact__grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: clamp(40px, 6vw, 120px);
+    align-items: center;
+  }
+  .contact__links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 24px 32px;
+    margin-top: 40px;
+  }
+  .contact__phone {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 500;
+  }
+
+  .form {
+    display: grid;
+    gap: 20px;
+    padding: clamp(24px, 3vw, 44px);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--line-light);
+    border-radius: 6px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  .field {
+    display: grid;
+    gap: 8px;
+  }
+  .field span {
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+  }
+  .field input {
+    height: 56px;
+    padding: 0 18px;
+    border: 1px solid var(--line-light);
+    border-radius: 4px;
+    background: rgba(11, 21, 48, 0.4);
+    color: var(--white);
+    font-size: 17px;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  .field input:focus {
+    border-color: var(--river);
+  }
+  .field input.is-invalid {
+    border-color: #ff7a7a;
+  }
+  .consent {
+    display: flex;
+    gap: 12px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.65);
+  }
+  .consent input {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    margin-top: 1px;
+    accent-color: var(--river);
+  }
+  .consent a {
+    text-decoration: underline;
+  }
+  .form__submit {
+    width: 100%;
+  }
+  .form__status {
+    min-height: 1.5em;
+    margin: 0;
+    font-size: 15px;
+  }
+  .form__status.is-ok {
+    color: var(--river);
+  }
+  .form__status.is-error {
+    color: #ff9a9a;
+  }
+
+  @media (max-width: 900px) {
+    .contact__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

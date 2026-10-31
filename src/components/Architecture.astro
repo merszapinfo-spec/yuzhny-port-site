@@ -1,0 +1,217 @@
+---
+import { Image } from 'astro:assets';
+import { images } from '../data/images.js';
+import { architecture } from '../data/site.js';
+---
+
+<section class="arch" id="architecture">
+  <div class="arch__intro container">
+    <span class="eyebrow" data-reveal>Архитектура</span>
+    <h2 class="h-section" data-split>Новый силуэт <b>юго-востока</b> Москвы</h2>
+  </div>
+
+  <div class="arch__pin" data-hscroll>
+    <div class="arch__track" data-hscroll-track>
+      {architecture.map((a) => (
+        <article class="arch__panel">
+          <div class="arch__media">
+            <Image src={images[a.img]} alt={a.title.join(' ')} widths={[828, 1280, 1920, 2560]} sizes="(max-width: 900px) 100vw, 80vw" class="cover" data-hscroll-img />
+          </div>
+          <div class="arch__caption">
+            <span class="arch__kicker">{a.kicker}</span>
+            <h3>{a.title[0]} <b>{a.title[1]}</b></h3>
+            <p class="arch__figure">{a.figure}</p>
+            <p>{a.text}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+    <div class="arch__progress" aria-hidden="true"><span data-hscroll-progress></span></div>
+  </div>
+
+  <figure class="facade" data-clip>
+    <div class="facade__img" data-parallax="-15">
+      <Image src={images['facade']} alt="Фасад жилой башни с волнообразными балконами" widths={[828, 1280, 1920, 2560]} sizes="100vw" class="cover" />
+    </div>
+    <figcaption class="container">
+      <p data-split>Футуристичная архитектура <b>у воды</b></p>
+    </figcaption>
+  </figure>
+</section>
+
+<style>
+  .arch {
+    background: var(--paper);
+  }
+  .arch__intro {
+    padding-top: clamp(80px, 12vw, 180px);
+    padding-bottom: clamp(40px, 5vw, 72px);
+  }
+  .arch__intro .h-section {
+    max-width: 14em;
+  }
+
+  .arch__pin {
+    position: relative;
+    overflow: hidden;
+  }
+  .arch__track {
+    display: flex;
+    gap: clamp(16px, 2vw, 32px);
+    padding: 0 var(--gutter);
+    width: max-content;
+    will-change: transform;
+  }
+  .arch__panel {
+    position: relative;
+    width: min(78vw, 1240px);
+    height: min(76svh, 760px);
+    flex-shrink: 0;
+    border-radius: 6px;
+    overflow: hidden;
+    color: var(--white);
+  }
+  .arch__media {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+  .arch__media :global(img) {
+    width: 115%;
+    max-width: none;
+    left: -7.5%;
+  }
+  .arch__panel::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(11, 21, 48, 0.8) 0%, rgba(11, 21, 48, 0) 50%);
+  }
+  .arch__caption {
+    position: absolute;
+    z-index: 1;
+    left: clamp(20px, 3vw, 48px);
+    right: clamp(20px, 3vw, 48px);
+    bottom: clamp(20px, 3vw, 48px);
+    display: grid;
+    grid-template-columns: auto 1fr minmax(0, 360px);
+    align-items: end;
+    gap: 8px 32px;
+  }
+  .arch__kicker {
+    grid-row: span 2;
+    align-self: start;
+    font-family: var(--font-display);
+    font-size: 14px;
+    color: var(--river);
+    letter-spacing: 0.2em;
+    padding-top: 12px;
+  }
+  .arch__caption h3 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 300;
+    text-transform: uppercase;
+    font-size: clamp(32px, 4.6vw, 72px);
+    line-height: 0.95;
+  }
+  .arch__caption h3 b {
+    font-weight: 600;
+    display: block;
+  }
+  .arch__figure {
+    grid-column: 2;
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 20px;
+    color: var(--river);
+  }
+  .arch__caption p:last-child {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+    margin: 0;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.82);
+  }
+
+  .arch__progress {
+    position: relative;
+    height: 2px;
+    margin: 32px var(--gutter) 0;
+    background: var(--line);
+  }
+  .arch__progress span {
+    position: absolute;
+    inset: 0;
+    background: var(--navy);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  .facade {
+    position: relative;
+    margin: clamp(80px, 12vw, 180px) 0 0;
+    height: 100svh;
+    min-height: 560px;
+    overflow: hidden;
+    color: var(--white);
+  }
+  .facade__img {
+    position: absolute;
+    inset: -12% 0;
+  }
+  .facade::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(11, 21, 48, 0.7), rgba(11, 21, 48, 0) 60%);
+  }
+  .facade figcaption {
+    position: absolute;
+    z-index: 1;
+    inset: auto 0 clamp(40px, 8vw, 120px);
+  }
+  .facade figcaption p {
+    margin: 0;
+    max-width: 11em;
+    font-family: var(--font-display);
+    font-weight: 300;
+    text-transform: uppercase;
+    font-size: clamp(36px, 5.4vw, 84px);
+    line-height: 1;
+  }
+  .facade figcaption b {
+    font-weight: 600;
+  }
+
+  @media (max-width: 900px) {
+    .arch__track {
+      flex-direction: column;
+      width: auto;
+    }
+    .arch__panel {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 3 / 4;
+    }
+    .arch__media :global(img) {
+      width: 100%;
+      left: 0;
+    }
+    .arch__caption {
+      grid-template-columns: 1fr;
+    }
+    .arch__kicker,
+    .arch__figure,
+    .arch__caption p:last-child {
+      grid-column: 1;
+      grid-row: auto;
+    }
+    .arch__kicker {
+      padding-top: 0;
+    }
+    .arch__progress {
+      display: none;
+    }
+  }
+</style>

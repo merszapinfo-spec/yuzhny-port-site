@@ -1,0 +1,153 @@
+---
+import { Image } from 'astro:assets';
+import { images } from '../data/images.js';
+import { nav, contacts } from '../data/site.js';
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <Image src={images['aeon-logo']} alt="Аеон Девелопмент" width={56} class="footer__logo" />
+        <div>
+          <p class="footer__name">Южный <b>Порт</b></p>
+          <p class="footer__dev">Застройщик — «Аеон Девелопмент»</p>
+        </div>
+      </div>
+      <nav class="footer__nav" aria-label="Разделы">
+        {nav.map((item) => <a href={item.href}>{item.label}</a>)}
+      </nav>
+      <div class="footer__contacts">
+        <a href={contacts.phoneHref}>{contacts.phone}</a>
+        <p>{contacts.address}</p>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>Информация на сайте носит информационный характер и не является публичной офертой. Визуализации предварительные.</p>
+      <p>© Южный Порт, {new Date().getFullYear()} · <a href="#">Политика конфиденциальности</a></p>
+    </div>
+  </div>
+</footer>
+
+<div class="cookie" data-cookie hidden>
+  <p>Мы используем куки-файлы. Продолжая просмотр сайта, вы соглашаетесь с <a href="#">политикой конфиденциальности</a>.</p>
+  <button class="btn btn--dark" type="button" data-cookie-ok>Хорошо</button>
+</div>
+
+<style>
+  .footer {
+    padding: 72px 0 40px;
+    background: var(--ink);
+    color: rgba(255, 255, 255, 0.7);
+    border-top: 1px solid var(--line-light);
+  }
+  .footer__top {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--line-light);
+  }
+  .footer__brand {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+  .footer__logo {
+    width: 56px;
+    height: auto;
+  }
+  .footer__name {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+  .footer__name b {
+    font-weight: 600;
+  }
+  .footer__dev {
+    margin: 4px 0 0;
+    font-size: 14px;
+  }
+  .footer__nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 24px;
+    align-content: start;
+  }
+  .footer__nav a:hover,
+  .footer__contacts a:hover {
+    color: var(--river);
+  }
+  .footer__contacts a {
+    font-family: var(--font-display);
+    font-size: 24px;
+    color: var(--white);
+  }
+  .footer__contacts p {
+    margin: 8px 0 0;
+  }
+  .footer__bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    padding-top: 24px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.45);
+  }
+  .footer__bottom p {
+    margin: 0;
+  }
+  .footer__bottom a {
+    text-decoration: underline;
+  }
+
+  .cookie {
+    position: fixed;
+    z-index: 60;
+    left: 16px;
+    bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    max-width: 520px;
+    padding: 16px 16px 16px 24px;
+    background: var(--white);
+    color: var(--text);
+    border-radius: 8px;
+    box-shadow: 0 20px 50px -20px rgba(11, 21, 48, 0.5);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .cookie[hidden] {
+    display: none;
+  }
+  .cookie p {
+    margin: 0;
+  }
+  .cookie a {
+    text-decoration: underline;
+  }
+  .cookie .btn {
+    height: 44px;
+    padding: 0 22px;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 900px) {
+    .footer__top {
+      grid-template-columns: 1fr;
+    }
+    .footer__bottom {
+      flex-direction: column;
+    }
+    .cookie {
+      right: 16px;
+    }
+  }
+</style>

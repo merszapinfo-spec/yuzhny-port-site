@@ -1,0 +1,239 @@
+---
+import { Image } from 'astro:assets';
+import { images } from '../data/images.js';
+import { route, routePath } from '../data/site.js';
+---
+
+<section class="emb" id="embankment">
+  <div class="emb__hero" data-emb-hero>
+    <div class="emb__hero-img" data-emb-hero-img>
+      <Image src={images['embankment']} alt="Набережная Южного Порта с кафе и яхтами" widths={[828, 1280, 1920, 2800]} sizes="100vw" class="cover" />
+    </div>
+    <div class="emb__hero-text container">
+      <span class="eyebrow">Набережная</span>
+      <h2 class="h-display" data-split><b>2 км</b> у воды</h2>
+      <p class="lead">Частные инвестиции совместно с городом превращают причалы Южного речного порта в многофункциональную набережную.</p>
+    </div>
+  </div>
+
+  <div class="route" data-route>
+    <div class="route__stage">
+      <div class="route__map">
+        <Image src={images['route-aerial']} alt="Маршрут набережной Южного Порта на аэрофото" widths={[828, 1280, 1794]} sizes="(max-width: 900px) 100vw, 60vw" class="route__img" />
+        <svg class="route__svg" viewBox="0 0 1000 513" preserveAspectRatio="none" aria-hidden="true" data-route-svg>
+          <path class="route__line-bg" d={routePath} />
+          <path class="route__line" d={routePath} pathLength="1" data-route-line />
+        </svg>
+        {route.map((p, i) => (
+          <button class="route__pt" style={`left:${p.x}%;top:${p.y}%`} type="button" data-route-pt={i} aria-label={`${p.n}. ${p.title}`}>
+            {p.n}
+          </button>
+        ))}
+      </div>
+
+      <div class="route__cards">
+        <div class="route__count"><span data-route-current>01</span> / 0{route.length}</div>
+        {route.map((p, i) => (
+          <article class:list={['route__card', { 'is-active': i === 0 }]} data-route-card={i}>
+            <div class="route__card-img">
+              <Image src={images[p.img]} alt={p.title} widths={[480, 828, 1200]} sizes="(max-width: 900px) 100vw, 34vw" class="cover" />
+            </div>
+            <h3><span>{p.n}</span>{p.title}</h3>
+            <p>{p.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .emb {
+    background: var(--ink);
+    color: var(--white);
+  }
+  .emb__hero {
+    position: relative;
+    height: 100svh;
+    min-height: 600px;
+    overflow: hidden;
+  }
+  .emb__hero-img {
+    position: absolute;
+    inset: 0;
+    will-change: clip-path, transform;
+  }
+  .emb__hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(11, 21, 48, 0.9) 0%, rgba(11, 21, 48, 0.1) 55%);
+    pointer-events: none;
+  }
+  .emb__hero-text {
+    position: absolute;
+    z-index: 1;
+    inset: auto 0 clamp(40px, 8vw, 110px);
+  }
+  .emb__hero-text .h-display {
+    margin: 16px 0 24px;
+    font-size: clamp(64px, 13vw, 210px);
+  }
+  .emb__hero-text .lead {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .route {
+    position: relative;
+  }
+  .route__stage {
+    display: grid;
+    grid-template-columns: 1.7fr 1fr;
+    gap: clamp(24px, 3vw, 56px);
+    align-items: center;
+    min-height: 100svh;
+    padding: 100px var(--gutter) 48px;
+    max-width: 1680px;
+    margin: 0 auto;
+  }
+  .route__map {
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .route__img {
+    width: 100%;
+    height: auto;
+  }
+  .route__svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .route__line-bg,
+  .route__line {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .route__line-bg {
+    stroke: rgba(11, 21, 48, 0.55);
+    stroke-width: 8;
+  }
+  .route__line {
+    stroke: var(--river);
+    stroke-width: 5;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    filter: drop-shadow(0 0 8px rgba(60, 196, 240, 0.9));
+  }
+
+  .route__pt {
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    margin: -18px 0 0 -18px;
+    border: 2px solid var(--white);
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--white);
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transform: scale(0.6);
+    opacity: 0.5;
+    transition: transform 0.5s var(--ease), opacity 0.5s, background 0.3s, color 0.3s;
+  }
+  .route__pt.is-passed {
+    transform: scale(1);
+    opacity: 1;
+  }
+  .route__pt.is-active {
+    transform: scale(1.25);
+    opacity: 1;
+    background: var(--river);
+    color: var(--ink);
+    box-shadow: 0 0 0 8px rgba(60, 196, 240, 0.3);
+  }
+
+  .route__cards {
+    position: relative;
+    display: grid;
+  }
+  .route__count {
+    margin-bottom: 20px;
+    font-family: var(--font-display);
+    font-size: 14px;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.5);
+  }
+  .route__count span {
+    color: var(--river);
+    font-size: 28px;
+    font-weight: 500;
+  }
+  .route__card {
+    grid-area: 2 / 1;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(24px);
+    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease), visibility 0.6s;
+  }
+  .route__card.is-active {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+  .route__card-img {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .route__card h3 {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin: 24px 0 10px;
+    font-family: var(--font-display);
+    font-size: clamp(24px, 2.4vw, 36px);
+    font-weight: 500;
+    text-transform: uppercase;
+    line-height: 1.05;
+  }
+  .route__card h3 span {
+    font-weight: 300;
+    color: var(--river);
+  }
+  .route__card p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  @media (max-width: 900px) {
+    .route__stage {
+      grid-template-columns: 1fr;
+      min-height: 0;
+      padding-top: 72px;
+    }
+    .route__pt {
+      width: 28px;
+      height: 28px;
+      margin: -14px 0 0 -14px;
+      font-size: 12px;
+    }
+    .route__count {
+      display: none;
+    }
+    .route__card {
+      grid-area: auto;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      margin-bottom: 40px;
+    }
+  }
+</style>

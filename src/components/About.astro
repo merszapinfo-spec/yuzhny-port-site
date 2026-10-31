@@ -1,0 +1,153 @@
+---
+import { Image } from 'astro:assets';
+import { images } from '../data/images.js';
+import { keyStats } from '../data/site.js';
+
+const fmt = (n, d = 0) => n.toLocaleString('ru-RU', { minimumFractionDigits: d, maximumFractionDigits: d });
+---
+
+<section class="section about" id="project">
+  <div class="container about__grid">
+    <div class="about__text">
+      <span class="eyebrow" data-reveal>О проекте</span>
+      <h2 class="h-section" data-split>Самодостаточный <b>район будущего</b></h2>
+      <p class="lead" data-reveal>
+        «Аеон Девелопмент» превращает территорию Южного речного порта в новый район на первой линии Москвы-реки — с жильём бизнес-класса, деловым и культурным центром, школами, детскими садами и собственной набережной.
+      </p>
+      <p class="about__note" data-reveal>
+        Проект меняет юго-восток столицы: новые точки деловой активности, транспортный узел со станцией метро и зелёные общественные пространства у воды.
+      </p>
+    </div>
+
+    <figure class="about__figure" data-clip>
+      <div class="about__img" data-parallax="-12">
+        <Image src={images['business-towers']} alt="Башни делового центра Южного Порта на берегу реки" widths={[600, 900, 1333]} sizes="(max-width: 900px) 100vw, 45vw" class="cover" />
+      </div>
+    </figure>
+  </div>
+
+  <div class="container">
+    <ul class="stats">
+      {keyStats.map((s) => (
+        <li class="stats__item" data-reveal>
+          <span class="stats__value">
+            <span data-count={s.value} data-decimals={s.decimals ?? 0}>{fmt(s.value, s.decimals)}</span>
+            <small>{s.unit}</small>
+          </span>
+          <span class="stats__label">{s.label}</span>
+        </li>
+      ))}
+      <li class="stats__item stats__item--time" data-reveal>
+        <span class="stats__value">2024<small>—</small>2041</span>
+        <span class="stats__label">сроки реализации проекта</span>
+        <span class="stats__bar"><span data-timeline></span></span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  .about__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(40px, 6vw, 120px);
+    align-items: center;
+  }
+  .about__note {
+    margin: 24px 0 0;
+    max-width: 34em;
+    color: var(--muted);
+  }
+  .about__figure {
+    position: relative;
+    margin: 0;
+    aspect-ratio: 4 / 4.6;
+    overflow: hidden;
+    border-radius: 4px;
+  }
+  .about__img {
+    position: absolute;
+    inset: -10% 0;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    margin: clamp(64px, 9vw, 140px) 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--line);
+  }
+  .stats__item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 32px 24px 0 0;
+  }
+  .stats__item + .stats__item {
+    padding-left: 24px;
+    border-left: 1px solid var(--line);
+  }
+  .stats__value {
+    font-family: var(--font-display);
+    font-size: clamp(30px, 3.2vw, 52px);
+    font-weight: 400;
+    line-height: 1;
+    color: var(--navy);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  .stats__value small {
+    font-size: 0.45em;
+    margin-left: 6px;
+    color: var(--river-deep);
+  }
+  .stats__item--time small {
+    margin: 0 6px;
+  }
+  .stats__label {
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .stats__bar {
+    position: relative;
+    height: 2px;
+    margin-top: 6px;
+    background: var(--line);
+  }
+  .stats__bar span {
+    position: absolute;
+    inset: 0;
+    background: var(--river);
+    transform-origin: left;
+  }
+
+  @media (max-width: 1100px) {
+    .stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .stats__item,
+    .stats__item + .stats__item {
+      padding: 24px 0;
+      border-left: 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .stats__item:nth-child(even) {
+      padding-left: 20px;
+      border-left: 1px solid var(--line);
+    }
+    .stats__item--time {
+      grid-column: 1 / -1;
+      padding-left: 0 !important;
+      border-left: 0 !important;
+    }
+  }
+  @media (max-width: 900px) {
+    .about__grid {
+      grid-template-columns: 1fr;
+    }
+    .about__figure {
+      aspect-ratio: 4 / 3.4;
+    }
+  }
+</style>

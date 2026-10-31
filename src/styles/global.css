@@ -1,0 +1,253 @@
+:root {
+  --ink: #0b1530;
+  --ink-2: #13224a;
+  --navy: #1f2d66;
+  --river: #3cc4f0;
+  --river-deep: #1593c4;
+  --mist: #eef3f9;
+  --paper: #f7f9fc;
+  --white: #ffffff;
+  --text: #16213f;
+  --muted: #5d6a88;
+  --line: rgba(22, 33, 63, 0.12);
+  --line-light: rgba(255, 255, 255, 0.18);
+
+  --font-display: 'Jost Variable', 'Futura', system-ui, sans-serif;
+  --font-body: 'Manrope Variable', system-ui, sans-serif;
+
+  --gutter: clamp(16px, 4vw, 56px);
+  --maxw: 1440px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+::selection {
+  background: var(--river);
+  color: var(--ink);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.section {
+  position: relative;
+  padding: clamp(80px, 12vw, 180px) 0;
+}
+
+.section--dark {
+  background: var(--ink);
+  color: var(--white);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--river-deep);
+}
+.eyebrow::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: currentColor;
+}
+.section--dark .eyebrow {
+  color: var(--river);
+}
+
+.h-display {
+  font-family: var(--font-display);
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 0.95;
+  font-size: clamp(44px, 8vw, 128px);
+  margin: 0;
+}
+.h-display b {
+  font-weight: 600;
+}
+
+.h-section {
+  font-family: var(--font-display);
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  font-size: clamp(36px, 5.6vw, 88px);
+  margin: 16px 0 0;
+}
+.h-section b {
+  font-weight: 600;
+}
+
+.lead {
+  font-size: clamp(18px, 1.6vw, 22px);
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 34em;
+}
+.section--dark .lead {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  height: 56px;
+  padding: 0 32px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  overflow: hidden;
+  transition: color 0.4s var(--ease), border-color 0.4s var(--ease), background 0.4s var(--ease);
+  isolation: isolate;
+}
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  transform: translateY(101%);
+  transition: transform 0.5s var(--ease);
+}
+.btn:hover::before {
+  transform: translateY(0);
+}
+
+.btn--primary {
+  background: var(--river);
+  color: var(--ink);
+}
+.btn--primary::before {
+  background: var(--white);
+}
+
+.btn--ghost {
+  border-color: var(--line-light);
+  color: var(--white);
+}
+.btn--ghost::before {
+  background: var(--white);
+}
+.btn--ghost:hover {
+  color: var(--ink);
+}
+
+.btn--dark {
+  background: var(--ink);
+  color: var(--white);
+}
+.btn--dark::before {
+  background: var(--river);
+}
+.btn--dark:hover {
+  color: var(--ink);
+}
+
+.btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Появление при прокрутке: стартовые состояния задаёт JS, без JS всё видно. */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(40px);
+}
+.js [data-split] .word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+.js [data-split] .word > span {
+  display: inline-block;
+  transform: translateY(105%);
+}
+
+.cover {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal],
+  .js [data-split] .word > span {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
